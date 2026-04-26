@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Submission Terminal</title>
+    <style>
+        /* --- HACKER THEME CSS --- */
+        body {
+            background-color: #050505;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .terminal-box {
+            background-color: #0a0a0a;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 15px #00ff00;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 5px;
+            margin: auto;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-shadow: 0 0 5px #00ff00;
+            border-bottom: 1px dashed #00ff00;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background-color: #000;
+            border: 1px solid #005500;
+            color: #00ff00;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 8px #00ff00;
+        }
+
+        input[type="text"]:disabled {
+            color: #555;
+            border-color: #333;
+        }
+
+        button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 12px 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00ff00;
+            color: #000;
+            box-shadow: 0 0 15px #00ff00;
+        }
+
+        /* --- CONGRATULATIONS SCREEN CSS --- */
+        #congrats-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .glitch {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px #005500, -2px -2px #00ff00;
+            animation: glitch-anim 1.5s infinite;
+        }
+
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            border-right: .15em solid #00ff00;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff00; }
+        }
+
+        .system-msg {
+            margin-top: 20px;
+            color: #aaaaaa;
+            font-size: 0.9em;
+        }
+
+        hr {
+            border: 0;
+            border-bottom: 1px dashed #00ff00;
+            margin: 20px 0;
+        }
+
+        /* Failure Message Styling */
+        .lore-text {
+            color: #ff3333;
+            font-size: 1.1em;
+            margin: 10px 0;
+            text-shadow: 1px 1px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-box" id="form-container">
+        <h2>> CyberCrime - Dashboard</h2>
+        <p>Submit your flags. System logging enabled.</p>
+        
+        <form id="ctfForm" action="https://formspree.io/f/xwpovlje" method="POST">
+            <div class="form-group">
+                <label>> Hacker / Team Name:</label>
+                <input type="text" name="TeamName" id="teamName" placeholder="Enter alias..." required hidden>
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 1 Flag (Ammar):</label>
+                <input type="text" name="Flag1" id="flag1" placeholder="cybercrime{...}">
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 2 Flag (Yassin):</label>
+                <input type="text" name="Flag2" id="flag2" placeholder="cybercrime{...}">
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 3 Flag (Helmy):</label>
+                <input type="text" name="Flag3" id="flag3" placeholder="cybercrime{...}">
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 4 Flag (Mostafa):</label>
+                <input type="text" name="Flag4" id="flag4" placeholder="cybercrime{...}">
+            </div>
+            
+            <div class="form-group">
+                <label>> Challenge 5 Flag (Habib):</label>
+                <input type="text" name="Flag5" id="flag5" placeholder="cybercrime{...}">
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 6 Flag (Habib) in Terminal:</label>
+                <input type="text" name="Flag6" id="flag6" placeholder="cybercrime{...}">
+            </div>
+
+            <button type="submit" id="submitBtn">>[ EXECUTE_PAYLOAD ]</button>
+        </form>
+    </div> 
+</div>
+</body>
+</html>
