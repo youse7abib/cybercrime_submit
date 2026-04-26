@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF Submission Terminal</title>
+    <style>
+        /* --- HACKER THEME CSS --- */
+        body {
+            background-color: #050505;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
+
+        .terminal-box {
+            background-color: #0a0a0a;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 15px #00ff00;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 5px;
+            margin: auto;
+        }
+
+        h2 {
+            margin-top: 0;
+            text-shadow: 0 0 5px #00ff00;
+            border-bottom: 1px dashed #00ff00;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            background-color: #000;
+            border: 1px solid #005500;
+            color: #00ff00;
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border: 1px solid #00ff00;
+            box-shadow: 0 0 8px #00ff00;
+        }
+
+        input[type="text"]:disabled {
+            color: #555;
+            border-color: #333;
+        }
+
+        button {
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            padding: 12px 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00ff00;
+            color: #000;
+            box-shadow: 0 0 15px #00ff00;
+        }
+
+        /* --- CONGRATULATIONS SCREEN CSS --- */
+        #congrats-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .glitch {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px #005500, -2px -2px #00ff00;
+            animation: glitch-anim 1.5s infinite;
+        }
+
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            border-right: .15em solid #00ff00;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00ff00; }
+        }
+
+        .system-msg {
+            margin-top: 20px;
+            color: #aaaaaa;
+            font-size: 0.9em;
+        }
+
+        hr {
+            border: 0;
+            border-bottom: 1px dashed #00ff00;
+            margin: 20px 0;
+        }
+
+        /* Failure Message Styling */
+        .lore-text {
+            color: #ff3333;
+            font-size: 1.1em;
+            margin: 10px 0;
+            text-shadow: 1px 1px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-box" id="form-container">
+        <h2>> CyberCrime - Dashboard</h2>
+        <p>Submit your flags. System logging enabled.</p>
+        
+        <form id="ctfForm" action="https://formspree.io/f/xwpovlje" method="POST">
+            <div class="form-group">
+                <label>> Hacker / Team Name:</label>
+                <input type="text" name="TeamName" id="teamName" placeholder="Enter alias..." required>
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 1 Flag (Ammar):</label>
+                <input type="text" name="Flag1" id="flag1" placeholder="cybercrime{...}">
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 2 Flag (Yassin):</label>
+                <input type="text" name="Flag2" id="flag2" placeholder="cybercrime{...}">
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 3 Flag (Helmy):</label>
+                <input type="text" name="Flag3" id="flag3" placeholder="cybercrime{...}">
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 4 Flag (Mostafa):</label>
+                <input type="text" name="Flag4" id="flag4" placeholder="cybercrime{...}">
+            </div>
+            
+            <div class="form-group">
+                <label>> Challenge 5 Flag (Habib):</label>
+                <input type="text" name="Flag5" id="flag5" placeholder="cybercrime{...}">
+            </div>
+
+            <div class="form-group">
+                <label>> Challenge 6 Flag (Habib) in Terminal:</label>
+                <input type="text" name="Flag6" id="flag6" placeholder="cybercrime{...}">
+            </div>
+
+            <button type="submit" id="submitBtn">>[ EXECUTE_PAYLOAD ]</button>
+        </form>
+    </div>
+
+    <div class="terminal-box" id="congrats-screen">
+        <div class="glitch">SYSTEM BREACHED</div>
+        <br>
+        <div class="typing">> CONGRATULATIONS, HACKER.</div>
+        <p>> ALL FLAGS VERIFIED AS CORRECT.</p>
+        <p>> ROOT PRIVILEGES GRANTED.</p>
+
+        <hr>
+
+        <p>> Congratulations, you’ve solved 3 CP problems and 2 intermediate-level CTF challenges. You’ve read 5 different stories and gathered information about each hacker. In your opinion, who is the attacker? (Keep in mind that it might NOT be one of the six members of the high board.)</p>
+        <img src="" alt="Guess the attacker" style="max-width: 100%; border: 1px solid #005500; margin-bottom: 15px;">
+
+        <div class="form-group">
+            <input type="text" id="attacker" placeholder="Enter hacker name...">
+        </div>
+        <button type="button" id="checkAttackerBtn">>[ VERIFY_IDENTITY ]</button>
+
+            <div id="final-success" style="display: none; margin-top: 20px; text-align: left;">
+            <p class="lore-text">> A critical mistake inside the IT room wiped the entire database…</p>
+            <p class="lore-text">> But no one admitted it.</p>
+            <p class="lore-text">> Instead, they blamed it on a “hacker attack.”</p>
+            <br>
+            <p class="lore-text">> And you’re seriously telling me they got hacked?</p>
+            <p class="lore-text">> Come on… Habib is the one protecting the system.</p>
+            <div class="glitch" style="font-size: 1.5em; color: #ff0000; text-shadow: 2px 2px #550000, -2px -2px #ff5555; text-align: center; margin-top: 15px;">SYSTEM LOCKED</div>
+        </div
+        </div>
+
+        <div id="final-failure" style="display: none; margin-top: 20px; text-align: left;">
+            <p class="lore-text">> A critical mistake inside the IT room wiped the entire database…</p>
+            <p class="lore-text">> But no one admitted it.</p>
+            <p class="lore-text">> Instead, they blamed it on a “hacker attack.”</p>
+            <br>
+            <p class="lore-text">> And you’re seriously telling me they got hacked?</p>
+            <p class="lore-text">> Come on… Habib is the one protecting the system.</p>
+            <div class="glitch" style="font-size: 1.5em; color: #ff0000; text-shadow: 2px 2px #550000, -2px -2px #ff5555; text-align: center; margin-top: 15px;">SYSTEM LOCKED</div>
+        </div>
+
+        <p class="system-msg">[ Data successfully exfiltrated to cybercrime Server ]</p>
+    </div>
+
+    <script>
+        const formspreeURL = "https://formspree.io/f/xwpovlje";
+
+        // ==========================================
+        // 1. FORM SUBMISSION & FLAG VALIDATION
+        // ==========================================
+        document.getElementById('ctfForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const correctFlags = {
+                flag1: "cybercrime{what_a_fast_player!!!}",
+                flag2: "cybercrime{happy_perfect_shakshouka!!!}",
+                flag3: "cybercrime{abuse@abion.com}",
+                flag4: "cybercrime{MSA}",
+                flag5: "cybercrime{7abib_rules_th_server}",
+                flag6: "cybercrime{I_love_draclua_AS_AbdullahIbrahim}",
+            };
+
+            const userFlag1 = document.getElementById('flag1').value.trim();
+            const userFlag2 = document.getElementById('flag2').value.trim();
+            const userFlag3 = document.getElementById('flag3').value.trim();
+            const userFlag4 = document.getElementById('flag4').value.trim(); 
+            const userFlag5 = document.getElementById('flag5').value.trim();
+            const userFlag6 = document.getElementById('flag6').value.trim();
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = ">[ PROCESSING... ]";
+            btn.disabled = true;
+
+            const formData = new FormData(this);
+
+            fetch(formspreeURL, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    if (userFlag1 === correctFlags.flag1 && 
+                        userFlag2 === correctFlags.flag2 && 
+                        userFlag3 === correctFlags.flag3 &&
+                        userFlag4 === correctFlags.flag4 &&
+                        userFlag5 === correctFlags.flag5 &&
+                        userFlag6 === correctFlags.flag6) {
+                        
+                        document.getElementById('form-container').style.display = 'none';
+                        document.getElementById('congrats-screen').style.display = 'block';
+                    } else {
+                        alert("> DATA SUBMITTED. However, one or more flags were missing or incorrect. Try again.");
+                        document.getElementById('ctfForm').reset();
+                        btn.innerText = ">[ EXECUTE_PAYLOAD ]";
+                        btn.disabled = false;
+                    }
+                } else {
+                    alert("> ERROR: Failed to connect to Formspree server.");
+                    btn.innerText = ">[ EXECUTE_PAYLOAD ]";
+                    btn.disabled = false;
+                }
+            }).catch(error => {
+                alert("> ERROR: Network failure.");
+                btn.innerText = ">[ EXECUTE_PAYLOAD ]";
+                btn.disabled = false;
+            });
+        });
+
+        // ==========================================
+        // 2. ATTACKER IDENTITY VALIDATION & FORMSPREE LOGGING
+        // ==========================================
+        let attemptCount = 0; // The counter for attempts
+
+        document.getElementById('checkAttackerBtn').addEventListener('click', function() {
+            const attackerInput = document.getElementById('attacker').value.trim();
+            const teamName = document.getElementById('teamName').value.trim();
+            const attackerNameLowercase = attackerInput.toLowerCase();
+
+            // 1. Log the Hacker Guess to Formspree silently in the background
+            const attackerData = new FormData();
+            attackerData.append("TeamName", teamName);
+            attackerData.append("AttackerGuess", attackerInput);
+
+            fetch(formspreeURL, {
+                method: 'POST',
+                body: attackerData,
+                headers: { 'Accept': 'application/json' }
+            }).catch(err => console.log("System log failed.")); 
+
+            // 2. Validate the identity locally
+            if (attackerNameLowercase === "shfisuyf78wy8y4ri3uwh8329y8h8h283h8w93h239thhshf84h9wh94h") {
+                // Correct name entered
+                document.getElementById('final-success').style.display = 'block'; 
+                document.getElementById('attacker').disabled = true; 
+                this.style.display = 'none'; 
+            } else {
+                // Incorrect name entered
+                attemptCount++; // Increase the attempt count
+                
+                if (attemptCount >= 3) {
+                    // Out of tries: Show the custom lore message
+                    document.getElementById('final-failure').style.display = 'block';
+                    document.getElementById('attacker').disabled = true; 
+                    this.style.display = 'none'; 
+                } else {
+                    // Still have tries left: Standard warning
+                    const triesLeft = 3 - attemptCount;
+                    alert(`> INCORRECT IDENTITY. ACCESS DENIED. (${triesLeft} attempts remaining)`);
+                    document.getElementById('attacker').value = ''; 
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
