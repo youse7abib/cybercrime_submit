@@ -179,71 +179,7 @@
     </div>
 
     <script>
-        const formspreeURL = "https://formspree.io/f/xwpovlje";
-
-        // ==========================================
-        // 1. FORM SUBMISSION & FLAG VALIDATION
-        // ==========================================
-        document.getElementById('ctfForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const correctFlags = {
-                flag1: "cybercrime{what_a_fast_player!!!}",
-                flag2: "cybercrime{happy_perfect_shakshouka!!!}",
-                flag3: "cybercrime{abuse@abion.com}",
-                flag4: "cybercrime{MSA}",
-                flag5: "cybercrime{7abib_rules_th_server}",
-                flag6: "cybercrime{I_love_draclua_AS_AbdullahIbrahim}",
-            };
-
-            const userFlag1 = document.getElementById('flag1').value.trim();
-            const userFlag2 = document.getElementById('flag2').value.trim();
-            const userFlag3 = document.getElementById('flag3').value.trim();
-            const userFlag4 = document.getElementById('flag4').value.trim(); 
-            const userFlag5 = document.getElementById('flag5').value.trim();
-            const userFlag6 = document.getElementById('flag6').value.trim();
-
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = ">[ PROCESSING... ]";
-            btn.disabled = true;
-
-            const formData = new FormData(this);
-
-            fetch(formspreeURL, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    if (userFlag1 === correctFlags.flag1 && 
-                        userFlag2 === correctFlags.flag2 && 
-                        userFlag3 === correctFlags.flag3 &&
-                        userFlag4 === correctFlags.flag4 &&
-                        userFlag5 === correctFlags.flag5 &&
-                        userFlag6 === correctFlags.flag6) {
-                        
-                        document.getElementById('form-container').style.display = 'none';
-                        document.getElementById('congrats-screen').style.display = 'block';
-                    } else {
-                        alert("> DATA SUBMITTED. However, one or more flags were missing or incorrect. Try again.");
-                        document.getElementById('ctfForm').reset();
-                        btn.innerText = ">[ EXECUTE_PAYLOAD ]";
-                        btn.disabled = false;
-                    }
-                } else {
-                    alert("> ERROR: Failed to connect to Formspree server.");
-                    btn.innerText = ">[ EXECUTE_PAYLOAD ]";
-                    btn.disabled = false;
-                }
-            }).catch(error => {
-                alert("> ERROR: Network failure.");
-                btn.innerText = ">[ EXECUTE_PAYLOAD ]";
-                btn.disabled = false;
-            });
-        });
-
+       
         // ==========================================
         // 2. ATTACKER IDENTITY VALIDATION & FORMSPREE LOGGING
         // ==========================================
