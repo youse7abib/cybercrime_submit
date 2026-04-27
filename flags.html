@@ -29,15 +29,9 @@
             margin: auto;
         }
 
-        h2 {
-            margin-top: 0;
-            text-shadow: 0 0 5px #00ff00;
-            border-bottom: 1px dashed #00ff00;
-            padding-bottom: 10px;
-        }
-
         .form-group {
             margin-bottom: 20px;
+            text-align: left;
         }
 
         label {
@@ -88,8 +82,7 @@
         }
 
         /* --- CONGRATULATIONS SCREEN CSS --- */
-        #congrats-screen {
-            display: none;
+        #main-screen {
             text-align: center;
         }
 
@@ -136,8 +129,7 @@
 </head>
 <body>
 
-   
-    <div class="terminal-box" id="congrats-screen">
+    <div class="terminal-box" id="main-screen">
         <div class="glitch">SYSTEM BREACHED</div>
         <br>
         <div class="typing">> CONGRATULATIONS, HACKER.</div>
@@ -147,22 +139,24 @@
         <hr>
 
         <p>> Congratulations, you’ve solved 3 CP problems and 2 intermediate-level CTF challenges. You’ve read 5 different stories and gathered information about each hacker. In your opinion, who is the attacker? (Keep in mind that it might NOT be one of the six members of the high board.)</p>
+        
         <img src="" alt="Guess the attacker" style="max-width: 100%; border: 1px solid #005500; margin-bottom: 15px;">
 
         <div class="form-group">
+            <label>> Team Alias:</label>
+            <input type="text" id="teamName" placeholder="Enter your team name...">
+        </div>
+
+        <div class="form-group">
+            <label>> Attacker Identity:</label>
             <input type="text" id="attacker" placeholder="Enter hacker name...">
         </div>
+        
         <button type="button" id="checkAttackerBtn">>[ VERIFY_IDENTITY ]</button>
 
-            <div id="final-success" style="display: none; margin-top: 20px; text-align: left;">
-            <p class="lore-text">> A critical mistake inside the IT room wiped the entire database…</p>
-            <p class="lore-text">> But no one admitted it.</p>
-            <p class="lore-text">> Instead, they blamed it on a “hacker attack.”</p>
-            <br>
-            <p class="lore-text">> And you’re seriously telling me they got hacked?</p>
-            <p class="lore-text">> Come on… Habib is the one protecting the system.</p>
-            <div class="glitch" style="font-size: 1.5em; color: #ff0000; text-shadow: 2px 2px #550000, -2px -2px #ff5555; text-align: center; margin-top: 15px;">SYSTEM LOCKED</div>
-        </div
+        <div id="final-success" style="display: none; margin-top: 20px; text-align: left;">
+            <div class="glitch" style="font-size: 1.5em; color: #ffffff; text-shadow: 2px 2px #ff0000, -2px -2px #0000ff;">IDENTITY CONFIRMED</div>
+            <p>> MISSION FULLY ACCOMPLISHED.</p>
         </div>
 
         <div id="final-failure" style="display: none; margin-top: 20px; text-align: left;">
@@ -175,14 +169,11 @@
             <div class="glitch" style="font-size: 1.5em; color: #ff0000; text-shadow: 2px 2px #550000, -2px -2px #ff5555; text-align: center; margin-top: 15px;">SYSTEM LOCKED</div>
         </div>
 
-        <p class="system-msg">[ Data successfully exfiltrated to cybercrime Server ]</p>
+        <p class="system-msg">[ System logging enabled ]</p>
     </div>
 
     <script>
-       
-        // ==========================================
-        // 2. ATTACKER IDENTITY VALIDATION & FORMSPREE LOGGING
-        // ==========================================
+        const formspreeURL = "https://formspree.io/f/xwpovlje";
         let attemptCount = 0; // The counter for attempts
 
         document.getElementById('checkAttackerBtn').addEventListener('click', function() {
@@ -190,10 +181,17 @@
             const teamName = document.getElementById('teamName').value.trim();
             const attackerNameLowercase = attackerInput.toLowerCase();
 
+            // Require team name and guess
+            if (!teamName || !attackerInput) {
+                alert("> ERROR: Please enter both Team Alias and Attacker Name.");
+                return;
+            }
+
             // 1. Log the Hacker Guess to Formspree silently in the background
             const attackerData = new FormData();
             attackerData.append("TeamName", teamName);
             attackerData.append("AttackerGuess", attackerInput);
+            attackerData.append("AttemptNumber", attemptCount + 1);
 
             fetch(formspreeURL, {
                 method: 'POST',
@@ -206,6 +204,7 @@
                 // Correct name entered
                 document.getElementById('final-success').style.display = 'block'; 
                 document.getElementById('attacker').disabled = true; 
+                document.getElementById('teamName').disabled = true; 
                 this.style.display = 'none'; 
             } else {
                 // Incorrect name entered
@@ -215,6 +214,7 @@
                     // Out of tries: Show the custom lore message
                     document.getElementById('final-failure').style.display = 'block';
                     document.getElementById('attacker').disabled = true; 
+                    document.getElementById('teamName').disabled = true; 
                     this.style.display = 'none'; 
                 } else {
                     // Still have tries left: Standard warning
